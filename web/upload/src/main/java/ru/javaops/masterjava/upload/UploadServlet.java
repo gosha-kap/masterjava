@@ -22,7 +22,6 @@ import static ru.javaops.masterjava.common.web.ThymeleafListener.engine;
 @Slf4j
 public class UploadServlet extends HttpServlet {
     private static final int CHUNK_SIZE = 2000;
-
     private final PayloadProcessor payloadProcessor = new PayloadProcessor();
 
     @Override

@@ -15,7 +15,7 @@ public class MailServiceClient {
                 new QName("http://mail.javaops.ru/", "MailServiceImplService"));
 
         MailService mailService = service.getPort(MailService.class);
-        String state = mailService.sendToGroup(ImmutableSet.of(new Addressee("masterjava@javaops.ru", null)), null,
+        String state = mailService.sendToGroup(ImmutableSet.of(new Addressee("gosha_kap@mail.ru", null)), null,
                 "Group mail subject", "Group mail body");
         System.out.println("Group mail state: " + state);
 

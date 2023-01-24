@@ -29,9 +29,7 @@ import static ru.javaops.masterjava.upload.PayloadProcessor.jaxbParser;
 @Slf4j
 public class UserProcessor {
     private static final int NUMBER_THREADS = 4;
-
     private static UserDao userDao = DBIProvider.getDao(UserDao.class);
-
     private ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_THREADS);
 
     /*
@@ -101,8 +99,7 @@ public class UserProcessor {
     private void addChunkFutures(Map<String, Future<List<String>>> chunkFutures, List<User> chunk, List<UserGroup> chunkUserGroups) {
         String emailRange = String.format("[%s-%s]", chunk.get(0).getEmail(), chunk.get(chunk.size() - 1).getEmail());
         Future<List<String>> future = executorService.submit(() -> {
-            //    https://www.programcreek.com/java-api-examples/index.php?api=org.skife.jdbi.v2.TransactionCallback
-            List<String> alreadyPresentsEmails = DBIProvider.getDBI().inTransaction((handle, status) -> {
+                List<String> alreadyPresentsEmails = DBIProvider.getDBI().inTransaction((handle, status) -> {
                 UserDao tUserDao = handle.attach(UserDao.class);
                 UserGroupDao tUserGroupDao = handle.attach(UserGroupDao.class);
                 List<User> alreadyPresents = tUserDao.insertAndGetConflictEmails(chunk);
